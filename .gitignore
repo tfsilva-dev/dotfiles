@@ -13,3 +13,6 @@ unity3d/
 *.key
 *.token
 .DS_Store
+
+# Ignorar pastas de aplicativos pesados
+discord/
