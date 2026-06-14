@@ -1,0 +1,4 @@
+monitor=,preferred,auto,1
+exec-once=kitty
+bind=SUPER,Q,exec,kitty
+bind=SUPER,E,exec,firefox

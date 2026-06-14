@@ -1,0 +1,57 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: 'JetBrains Mono', 'Font Awesome 6 Free', sans-serif;
+    font-size: 14px;
+    min-height: 0;
+}
+
+window#waybar {
+        background-color: rgba(26, 27, 38, 0.7); /* O 0.7 aqui define a transparência */
+        color: #c0caf5;
+        border-bottom: 2px solid rgba(122, 162, 247, 0.5); /* Borda também com transparência */
+    }
+
+#workspaces button {
+    padding: 0 10px;
+    color: #c0caf5;
+    background-color: transparent;
+}
+
+#workspaces button.focused, #workspaces button.active {
+    color: #7aa2f7;
+    border-bottom: 2px solid #7aa2f7;
+}
+
+#cpu, #memory, #pulseaudio, #clock {
+    padding: 0 15px;
+    margin: 4px 6px;
+    background-color: #24283b; /* Fundo dos módulos */
+    border-radius: 8px;
+    color: #7aa2f7;
+}
+
+#clock {
+    color: #c0caf5;
+    font-weight: bold;
+}
+
+#custom-power {
+    padding: 0 15px;
+    margin: 4px 6px;
+    background-color: #f7768e;
+    border-radius: 8px;
+    color: #ffffff;
+    
+    /* Aumentando o tamanho do ícone */
+    font-size: 22px; 
+    
+    /* Garantindo que ele não fique "cortado" */
+    min-width: 40px;
+}
+
+#custom-arch {
+    font-size: 20px;
+    padding: 0 10px;
+    color: #1793d1; /* Cor característica do logo do Arch */
+}

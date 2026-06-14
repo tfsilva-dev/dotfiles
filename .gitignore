@@ -1,0 +1,15 @@
+# Ignorar pastas de cache e logs
+cache/
+logs/
+
+# Ignorar pastas de apps que não precisam de backup (geralmente geradas automaticamente)
+Code/
+Code - OSS/
+mozilla/
+zen/
+unity3d/
+
+# Ignorar arquivos sensíveis ou de sessão
+*.key
+*.token
+.DS_Store

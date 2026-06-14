@@ -1,0 +1,22 @@
+window {
+    margin: 0px;
+    background-color: rgba(46, 52, 64, 0.85);
+    border-radius: 10px;
+}
+
+#input {
+    margin: 10px;
+    border: 2px solid #88c0d0; /* Adicionei uma borda para destacar a caixa de busca */
+    background-color: rgba(59, 66, 82, 0.5);
+    color: #ffffff; /* Texto branco no campo de entrada */
+}
+
+#entry {
+    padding: 5px;
+    color: #d8dee9; /* Cor de texto clara para as opções */
+}
+
+#entry:selected {
+    background-color: rgba(136, 192, 208, 0.9); /* Fundo do item selecionado mais opaco */
+    color: #2e3440; /* Texto escuro apenas no item selecionado para dar alto contraste */
+}

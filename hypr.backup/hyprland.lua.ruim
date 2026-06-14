@@ -1,0 +1,82 @@
+-- ==========================================
+-- VARIÁVEIS PRINCIPAIS
+-- ==========================================
+local mainMod = "SUPER"
+local terminal = "kitty"
+local fileManager = "nemo"
+local menu = "wofi --show drun"
+local browser = "zen-browser"
+
+
+-- ==========================================
+-- VARIÁVEIS DE AMBIENTE (ENVS)
+-- ==========================================
+-- Variável obrigatória para o Zen/Firefox rodar liso no Wayland
+hl.env("MOZ_ENABLE_WAYLAND", "1")
+hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
+
+
+-- ==========================================
+-- DARKMODE E CONFIGURAÇÕES DE SISTEMA (EXEC)
+-- ==========================================
+hl.exec_cmd('gsettings set org.gnome.desktop.interface gtk-theme "adw-gtk3-dark"')
+hl.exec_cmd('gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"')
+
+
+-- ==========================================
+-- AUTOSTART (EXEC-ONCE)
+-- ==========================================
+-- Ouve o evento de inicialização do Hyprland para rodar o Waybar
+hl.on("hyprland.start", function()
+    hl.exec_cmd("waybar")
+end)
+
+
+-- ==========================================
+-- TECLAS DE ATALHO GERAIS (BINDS)
+-- ==========================================
+hl.bind(mainMod, "Q", function() hl.exec_cmd(terminal) end)
+hl.bind(mainMod, "C", function() hl.dispatch("killactive") end)
+
+-- Script de shutdown com fallback para o exit nativo
+hl.bind(mainMod, "M", function() 
+    hl.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit") 
+end)
+
+hl.bind(mainMod, "E", function() hl.exec_cmd(fileManager) end)
+hl.bind(mainMod, "V", function() hl.dispatch("togglefloating") end)
+hl.bind(mainMod, "R", function() hl.exec_cmd(menu) end)
+hl.bind(mainMod, "B", function() hl.exec_cmd(browser) end)
+
+
+-- ==========================================
+-- PRINTS DE TELA
+-- ==========================================
+-- A string de atalho fica vazia ("") pois a tecla Print não exige um modificador (SUPER) aqui
+hl.bind("", "Print", function() hl.exec_cmd("grim - | wl-copy") end)
+
+hl.bind(mainMod .. " SHIFT", "S", function() 
+    hl.exec_cmd('grim -g "$(slurp -d)" - | wl-copy') 
+end)
+
+-- Utilizei [[ ]] nativo do Lua em volta do comando para evitar conflito com as aspas e formatações do comando 'date'
+hl.bind(mainMod .. " SHIFT", "P", function() 
+    hl.exec_cmd([[grim -g "$(slurp -d)" ~/Imagens/print_$(date +'%Y%m%d_%H%M%S').png]]) 
+end)
+
+
+-- ==========================================
+-- TIDE ISLAND OVERVIEW
+-- ==========================================
+hl.bind(mainMod, "TAB", function() 
+    hl.exec_cmd("qs ipc -p /usr/share/tide-island call overview toggle") 
+end)
+
+-- ==========================================
+-- ATALHOS DE MOUSE (ARRASTAR E REDIMENSIONAR)
+-- ==========================================
+-- Segurar SUPER + Botão Esquerdo para mover a janela
+hl.bindm(mainMod, "mouse:272", "movewindow")
+
+-- Segurar SUPER + Botão Direito para redimensionar a janela
+hl.bindm(mainMod, "mouse:273", "resizewindow")
