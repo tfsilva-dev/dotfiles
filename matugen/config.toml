@@ -1,0 +1,11 @@
+[config]
+reload_apps = false
+source_color_index = 0
+
+[templates.quickshell]
+input_path = '~/.config/matugen/templates/quickshell-colors.json'
+output_path = '~/.cache/quickshell-colors.json'
+
+[templates.zen]
+input_path = '~/.config/matugen/templates/zen-userChrome.css'
+output_path = '~/.config/zen/9e6rs3vm.Default (release)/chrome/userChrome.css'

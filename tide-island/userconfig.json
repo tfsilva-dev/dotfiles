@@ -1,0 +1,20 @@
+{
+    "dynamicIslandLeftSwipeItems": [
+        "cava",
+        "battery"
+    ],
+    "dynamicIslandPrimaryAction": "toggleExpandedPlayer",
+    "dynamicIslandPrimaryButton": 1,
+    "dynamicIslandSecondaryAction": "toggleControlCenter",
+    "dynamicIslandSecondaryButton": 3,
+    "heroFontFamily": "Inter Display",
+    "iconFontFamily": "JetBrainsMono Nerd Font",
+    "overviewGlobalShortcutAppid": "quickshell",
+    "overviewGlobalShortcutName": "dynamic-island-overview",
+    "textFontFamily": "Inter Display",
+    "timeFontFamily": "Inter Display",
+    "tlpPermissionMode": "",
+    "tlpSudoPassword": "",
+    "wallpaperPath": "",
+    "workspaceOverviewWindowDragButton": 1
+}

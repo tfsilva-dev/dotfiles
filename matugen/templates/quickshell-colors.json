@@ -1,0 +1,6 @@
+{
+  "surface": "{{colors.surface.dark.hex}}",
+  "primary": "{{colors.primary.dark.hex}}",
+  "on_surface": "{{colors.on_surface.dark.hex}}",
+  "outline": "{{colors.outline.dark.hex}}"
+}

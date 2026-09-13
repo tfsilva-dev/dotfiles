@@ -1,0 +1,1 @@
+/home/ferreira/dotfiles/themes/liquidglass/quickshell-dock/shell.qml

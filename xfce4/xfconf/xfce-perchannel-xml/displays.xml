@@ -1,0 +1,26 @@
+<?xml version="1.1" encoding="UTF-8"?>
+
+<channel name="displays" version="1.0">
+  <property name="Notify" type="int" value="1"/>
+  <property name="AutoEnableProfiles" type="int" value="3"/>
+  <property name="ActiveProfile" type="string" value="Default"/>
+  <property name="Schemes" type="empty">
+    <property name="Apply" type="string" value="Temp"/>
+  </property>
+  <property name="Default" type="empty">
+    <property name="DP-3" type="string" value="AOC 24G2W1G3- QQLO8XA008949 (DP-3)">
+      <property name="EDID" type="string" value="ce5fd29b647a89983fedc633d67cf77c81e8cd49"/>
+      <property name="DuplicateEDID" type="bool" value="false"/>
+      <property name="Active" type="bool" value="true"/>
+      <property name="Resolution" type="string" value="1920x1080"/>
+      <property name="RefreshRate" type="double" value="144"/>
+      <property name="Rotation" type="int" value="0"/>
+      <property name="Reflection" type="string" value="0"/>
+      <property name="Scale" type="double" value="1"/>
+      <property name="Position" type="empty">
+        <property name="X" type="int" value="0"/>
+        <property name="Y" type="int" value="0"/>
+      </property>
+    </property>
+  </property>
+</channel>

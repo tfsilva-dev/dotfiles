@@ -1,18 +1,28 @@
-# Ignorar pastas de cache e logs
-cache/
-logs/
-
-# Ignorar pastas de apps que não precisam de backup (geralmente geradas automaticamente)
+# Apps pesados / dados gerados automaticamente (não são "config" editável à mão)
+discord/
 Code/
 Code - OSS/
 mozilla/
 zen/
+floorp/
+go/
 unity3d/
+YouTube Music/
+Windscribe/
+rustdesk/
 
-# Ignorar arquivos sensíveis ou de sessão
+# Menus gerados automaticamente (ex: instaladores Wine)
+menus/applications-merged/
+
+# Symlink instalado pelo pacote windscribe (aponta pra /etc, quebrado nesta máquina)
+autostart/windscribe.desktop
+
+# Cache, logs e locks
+cache/
+logs/
+*.lock
+
+# Segredos e sessões
 *.key
 *.token
 .DS_Store
-
-# Ignorar pastas de aplicativos pesados
-discord/
