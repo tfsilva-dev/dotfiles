@@ -1,0 +1,45 @@
+/* Gerado automaticamente pelo matugen — não editar na mão, edite o template em
+   ~/.config/matugen/templates/zen-userChrome.css */
+
+:root {
+  --zen-bg: #0f1417;
+  --zen-fg: #dfe3e7;
+  --zen-accent: #90cef4;
+  --zen-border: #8b9297;
+}
+
+#navigator-toolbox,
+#TabsToolbar,
+#nav-bar,
+#PersonalToolbar {
+  background-color: color-mix(in srgb, var(--zen-bg) 55%, transparent) !important;
+  backdrop-filter: blur(24px) saturate(160%) !important;
+  color: var(--zen-fg) !important;
+}
+
+#urlbar-background {
+  background-color: color-mix(in srgb, var(--zen-bg) 45%, white 10%) !important;
+  backdrop-filter: blur(18px) saturate(160%) !important;
+  border: 1px solid var(--zen-border) !important;
+}
+
+#urlbar-input,
+.urlbar-input-box {
+  color: var(--zen-fg) !important;
+}
+
+.tabbrowser-tab .tab-label {
+  color: var(--zen-fg) !important;
+}
+
+.tabbrowser-tab[selected="true"] .tab-background {
+  background-color: color-mix(in srgb, var(--zen-bg) 50%, var(--zen-accent) 30%) !important;
+  backdrop-filter: blur(18px) !important;
+}
+
+#sidebar-box,
+#sidebar {
+  background-color: color-mix(in srgb, var(--zen-bg) 60%, transparent) !important;
+  backdrop-filter: blur(24px) saturate(160%) !important;
+  color: var(--zen-fg) !important;
+}

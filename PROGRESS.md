@@ -14,7 +14,9 @@ por limitação de fluidez visual do GTK. Waybar e eww estão desativados.
   (barra superior + dashboard + todos os popups)
 - `themes/liquidglass/quickshell-dock/shell.qml` + `DockIcon.qml`
   → symlink em `~/.config/quickshell/dock/` (dock inferior)
-- `themes/liquidglass/floorp/userChrome.css` → symlink no perfil do Floorp
+- `themes/liquidglass/zen/userChrome.css` → symlink no perfil do Zen Browser
+  (gerado automaticamente pelo `matugen` a partir do wallpaper — não editar
+  na mão, editar o template em `~/.config/matugen/templates/zen-userChrome.css`)
 
 ## ⚠️ Armadilhas conhecidas (não repetir)
 - **Symlinks quebram com `mv` pra `~/.config`**: sempre salvar/mover pro
@@ -54,20 +56,23 @@ por limitação de fluidez visual do GTK. Waybar e eww estão desativados.
 Logo Arch + janela ativa | workspaces clicáveis | launcher | wifi toggle |
 avisos (notificações) | CPU | RAM | relógio | energia (desligar/reiniciar/logout)
 
-Todos os popups fecham com `grabFocus: true` (clique fora fecha sozinho).
+Todos os popups fecham com `HyprlandFocusGrab` (clique fora fecha sozinho —
+ver armadilha acima sobre por que não é `grabFocus: true`).
 
 ## Dock (quickshell-dock) — 100% funcional
-5 ícones: kitty, Floorp, Thunar, VSCode, configurações. Agora é symlink de
-verdade (era cópia solta antes).
+6 ícones: kitty, Zen Browser, YouTube Music, Thunar, VS Code, configurações.
+Agora é symlink de verdade (era cópia solta antes).
 
 ## Hyprland — extras configurados
 - `SUPER+SHIFT+F`: fullscreen real | `SUPER+M`: maximizar
 - Steam: workspace 9 dedicado (não mais especial — ver armadilha acima),
   window rule fix pro menu de contexto (`stay_focused` + `min_size = "1 1"`)
-- userChrome.css do Floorp com tema vidro (precisa de
+- `zen-glass`: window rule de opacidade (0.94/0.88) na janela do Zen Browser
+  (class `zen`) — separado do `userChrome.css` gerado pelo matugen, que cuida
+  do visual interno do navegador (precisa de
   `toolkit.legacyUserProfileCustomizations.stylesheets = true` no about:config)
 
 ## Em aberto / possíveis próximos passos
 - Nenhum item crítico pendente. Possíveis melhorias futuras: animações de
   transição entre os cards do dashboard, mais quick toggles (brilho, volume),
-  suporte a múltiplos monitores (hoje só DP-2 configurado).
+  suporte a múltiplos monitores (hoje só DP-3 configurado).

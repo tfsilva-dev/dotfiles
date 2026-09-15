@@ -15,7 +15,7 @@
 #   1. Valida se o tema existe em ~/dotfiles/themes/
 #   2. Faz backup do que existir atualmente em ~/.config (se não for já um symlink nosso)
 #   3. Cria os symlinks apontando para o tema escolhido
-#   4. Recarrega Hyprland e Waybar
+#   4. Recarrega Hyprland
 
 set -euo pipefail
 
@@ -48,6 +48,7 @@ echo ">> Trocando para o tema: $THEME"
 # formato: "caminho_relativo_no_tema:caminho_relativo_no_.config"
 declare -a LINKS=(
     "hypr/hyprland.lua:hypr/hyprland.lua"
+    "hypr/modules:hypr/modules"
     "waybar/config:waybar/config"
     "waybar/style.css:waybar/style.css"
     "kitty/kitty.conf:kitty/kitty.conf"
@@ -96,16 +97,6 @@ fi
 echo ">> Recarregando Hyprland..."
 if command -v hyprctl &>/dev/null; then
     hyprctl reload || echo "   aviso: hyprctl reload falhou (Hyprland rodando?)"
-fi
-
-echo ">> Recarregando Waybar..."
-if pgrep -x waybar &>/dev/null; then
-    pkill waybar
-    sleep 0.3
-fi
-if command -v waybar &>/dev/null; then
-    nohup waybar >/dev/null 2>&1 &
-    disown
 fi
 
 echo ">> Tema '$THEME' ativado."
