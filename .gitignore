@@ -26,3 +26,8 @@ logs/
 *.key
 *.token
 .DS_Store
+dconf/user
+.claude/
+.wrangler/
+session/
+trashrc
