@@ -31,3 +31,4 @@ dconf/user
 .wrangler/
 session/
 trashrc
+tide-island/userconfig.json
