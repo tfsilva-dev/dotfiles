@@ -21,6 +21,15 @@ ShellRoot {
         implicitHeight: 34
         color: "transparent"
 
+        // Some em fullscreen (jogos etc). Workspace 9 entra como reforço porque
+        // é onde a window rule do Steam manda os jogos — cobre o caso de algum
+        // app reportar fullscreen errado/tarde pro protocolo hyprland-toplevel.
+        // Hyprland.activeToplevel (IPC) não expõe fullscreen; quem tem isso é
+        // o ToplevelManager (protocolo wlr-foreign-toplevel, atualiza sozinho).
+        readonly property bool activeIsFullscreen: !!(ToplevelManager.activeToplevel && ToplevelManager.activeToplevel.fullscreen)
+        readonly property bool onGameWorkspace: !!(Hyprland.focusedWorkspace && Hyprland.focusedWorkspace.id === 9)
+        visible: !activeIsFullscreen && !onGameWorkspace
+
         // Fonte "premium" — troque pelo nome exato se instalar outra
         property string fontFamily: "Inter"
 
@@ -1249,7 +1258,7 @@ ShellRoot {
         Connections {
             target: Hyprland
             function onRawEvent(event) {
-                if (event.name === "activewindow" || event.name === "activewindowv2" || event.name === "workspace") {
+                if (event.name === "activewindow" || event.name === "activewindowv2" || event.name === "workspace" || event.name === "fullscreen") {
                     Hyprland.refreshToplevels()
                     Hyprland.refreshWorkspaces()
                 }

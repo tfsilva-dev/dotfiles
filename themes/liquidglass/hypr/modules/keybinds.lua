@@ -27,8 +27,8 @@ hl.bind("SHIFT + " .. "Print", hl.dsp.exec_cmd('grim -g "$(slurp)" - | wl-copy')
 -- Copiar a tela inteira para a área de transferência
 hl.bind("Print", hl.dsp.exec_cmd("grim - | wl-copy"))
 
--- Captura de tela com anotação (setas, texto, blur), estilo Spectacle do KDE
-hl.bind(mainMod .. " + " .. "P", hl.dsp.exec_cmd("flameshot gui"))
+-- Captura de tela com seleção de região (hyprshot)
+hl.bind(mainMod .. " + " .. "P", hl.dsp.exec_cmd("hyprshot -m region --clipboard-only"))
 
 -- Arrastar janelas com SUPER + Clique Esquerdo
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })

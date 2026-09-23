@@ -2,6 +2,7 @@
 
 import Quickshell
 import Quickshell.Wayland
+import Quickshell.Hyprland
 import Quickshell.Io
 import QtQuick
 import QtQuick.Layouts
@@ -22,6 +23,24 @@ ShellRoot {
         implicitWidth: dockRow.implicitWidth + 24
         implicitHeight: 52
         color: "transparent"
+
+        // Mesma lógica de auto-hide da barra (processo separado, então precisa
+        // da própria escuta de eventos do Hyprland pra manter isso atualizado).
+        // Hyprland.activeToplevel (IPC) não expõe fullscreen; quem tem isso é
+        // o ToplevelManager (protocolo wlr-foreign-toplevel, atualiza sozinho).
+        readonly property bool activeIsFullscreen: !!(ToplevelManager.activeToplevel && ToplevelManager.activeToplevel.fullscreen)
+        readonly property bool onGameWorkspace: !!(Hyprland.focusedWorkspace && Hyprland.focusedWorkspace.id === 9)
+        visible: !activeIsFullscreen && !onGameWorkspace
+
+        Connections {
+            target: Hyprland
+            function onRawEvent(event) {
+                if (event.name === "activewindow" || event.name === "activewindowv2" || event.name === "workspace" || event.name === "fullscreen") {
+                    Hyprland.refreshToplevels()
+                    Hyprland.refreshWorkspaces()
+                }
+            }
+        }
 
         // ---- Cores dinâmicas do wallpaper (mesmo arquivo que a barra lê) ----
         FileView {
