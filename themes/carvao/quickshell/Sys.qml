@@ -112,6 +112,14 @@ Singleton {
     // ---- Janela de aparência (aberta pela engrenagem do painel) ----
     property bool appearanceOpen: false
 
+    // Seta de voltar da aparência: o painel reabre no lugar dela
+    signal panelRequested()
+
+    function backToPanel() {
+        appearanceOpen = false
+        panelRequested()
+    }
+
     // ---- Notificações ----
     property bool dnd: false
 

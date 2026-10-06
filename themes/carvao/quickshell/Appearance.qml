@@ -1,7 +1,9 @@
 // Appearance.qml — janela de aparência (aberta pela engrenagem do painel)
 //
 // Layer-shell em vez de janela comum: superfície layer-shell nunca entra no
-// tiling do Hyprland, sem depender de window rule. Cobre a tela inteira com
+// tiling do Hyprland, sem depender de window rule. O quadro ocupa o lugar do
+// painel (logo abaixo da barra, mesma largura), como se o painel tivesse sido
+// trocado por esta tela. Cobre a tela inteira com
 // um fundo transparente que fecha ao clicar fora — como a janela pega o
 // teclado em modo Exclusive (pro ESC funcionar), ela não pode ficar
 // esquecida aberta. Fecha também no X e com ESC.
@@ -41,8 +43,12 @@ PanelWindow {
 
     Rectangle {
         id: dialog
-        anchors.centerIn: parent
-        width: Theme.dialogWidth
+        // mesma posição do painel: o layer cobre a tela toda (ExclusionMode.Ignore),
+        // então o topo é medido da borda da tela, como a margem da barra
+        anchors.top: parent.top
+        anchors.topMargin: Theme.barMarginTop + Theme.barHeight + Theme.panelGap
+        anchors.horizontalCenter: parent.horizontalCenter
+        width: Theme.barWidth
         height: content.implicitHeight + 2 * Theme.padding
         color: Theme.bg
         radius: Theme.radius
@@ -65,6 +71,12 @@ PanelWindow {
 
             RowLayout {
                 Layout.fillWidth: true
+                spacing: Theme.spacing / 2
+
+                IconButton {
+                    icon: Icons.back
+                    onClicked: Sys.backToPanel()
+                }
 
                 Txt {
                     Layout.fillWidth: true

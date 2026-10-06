@@ -47,6 +47,13 @@ PopupWindow {
                 panel.open = false
             }
         }
+
+        // Voltar da aparência: reabre já no lugar. Se o mouse não estiver
+        // sobre a barra/painel, fecha pelo atraso normal.
+        function onPanelRequested() {
+            panel.open = true
+            if (!panel.wanted) closeTimer.restart()
+        }
     }
 
     Timer {

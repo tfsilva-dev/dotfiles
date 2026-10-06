@@ -135,7 +135,6 @@ Singleton {
     readonly property real sliderStep: 0.05             // passo do scroll no volume
     readonly property int toastWidth: 300
     readonly property int toastMargin: 8
-    readonly property int dialogWidth: 300              // janela de aparência
     readonly property int swatchSize: 22
     readonly property int chipHeight: Math.round(26 * fontScale)
 
