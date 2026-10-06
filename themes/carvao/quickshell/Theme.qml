@@ -59,10 +59,10 @@ Singleton {
 
         adapter: JsonAdapter {
             id: prefs
-            property string accent: "vermelho"
-            property string corners: "suave"
+            property string accent: "areia"
+            property string corners: "reto"
             property string tone: "carvao"
-            property string font: "medio"
+            property string font: "grande"
         }
     }
 
@@ -81,10 +81,10 @@ Singleton {
         return list.find(p => p.key === key) ?? list.find(p => p.key === fallback)
     }
 
-    readonly property var _accent: preset(accentPresets, prefs.accent, "vermelho")
-    readonly property var _corners: preset(cornerPresets, prefs.corners, "suave")
+    readonly property var _accent: preset(accentPresets, prefs.accent, "areia")
+    readonly property var _corners: preset(cornerPresets, prefs.corners, "reto")
     readonly property var _tone: preset(tonePresets, prefs.tone, "carvao")
-    readonly property real fontScale: preset(fontPresets, prefs.font, "medio").scale
+    readonly property real fontScale: preset(fontPresets, prefs.font, "grande").scale
 
     function luminance(c) {
         return 0.299 * c.r + 0.587 * c.g + 0.114 * c.b
