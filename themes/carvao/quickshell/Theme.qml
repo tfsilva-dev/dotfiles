@@ -136,6 +136,15 @@ Singleton {
     readonly property int toastWidth: 300
     readonly property int toastMargin: 8
     readonly property int swatchSize: 22
+
+    // ---- Dock ----
+    readonly property int dockIconSize: 28
+    readonly property int dockItemSize: 38              // área de hover atrás do ícone
+    readonly property int dockInset: 4                  // folga entre a borda e a área de hover
+    readonly property int dockIndicatorGap: 2           // entre a área de hover e o indicador
+    readonly property int dockHeight: dockItemSize + 2 * dockInset + dockIndicatorGap + wsDotSize
+    readonly property int dockMarginBottom: barMarginTop  // espelha a margem da barra
+    readonly property int dockSpacing: 6
     readonly property int chipHeight: Math.round(26 * fontScale)
 
     // ---- Movimento ----

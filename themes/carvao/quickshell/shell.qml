@@ -28,6 +28,10 @@ ShellRoot {
             Appearance {
                 targetScreen: perScreen.modelData
             }
+
+            Dock {
+                screen: perScreen.modelData
+            }
         }
     }
 

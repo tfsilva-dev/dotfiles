@@ -181,6 +181,13 @@ Singleton {
         Quickshell.execDetached(["hyprctl", "dispatch", "hl.dsp.focus({workspace=" + id + "})"])
     }
 
+    // Foca a janela e vai pro workspace dela. O activate() do protocolo de
+    // toplevels não serve: o Hyprland ignora esse pedido.
+    function focusWindow(address) {
+        const addr = address.startsWith("0x") ? address : "0x" + address
+        Quickshell.execDetached(["hyprctl", "dispatch", "hl.dsp.focus({window='address:" + addr + "'})"])
+    }
+
     // ---- Energia (sempre via ~/.local/bin/power, que fecha o Steam antes) ----
     function power(action) {
         Quickshell.execDetached([Quickshell.env("HOME") + "/.local/bin/power", action])
