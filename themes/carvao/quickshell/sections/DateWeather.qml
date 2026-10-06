@@ -8,8 +8,9 @@ import qs.components
 RowLayout {
     spacing: Theme.spacing
 
+    // A data nunca é cortada; quem cede espaço é a descrição do clima
     ColumnLayout {
-        Layout.fillWidth: true
+        Layout.minimumWidth: implicitWidth
         spacing: 2
 
         Txt {
@@ -27,6 +28,7 @@ RowLayout {
 
     ColumnLayout {
         visible: Sys.weatherLoaded
+        Layout.fillWidth: true
         Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
         spacing: 2
 
@@ -49,7 +51,9 @@ RowLayout {
         }
 
         Txt {
-            Layout.alignment: Qt.AlignRight
+            Layout.fillWidth: true
+            horizontalAlignment: Text.AlignRight
+            elide: Text.ElideRight
             text: Sys.weatherLabel
             color: Theme.caption
             font.pixelSize: Theme.fontCaption

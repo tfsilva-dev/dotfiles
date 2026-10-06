@@ -24,6 +24,7 @@ Singleton {
     readonly property string bell: String.fromCodePoint(0xF009A)
     readonly property string bellOff: String.fromCodePoint(0xF009B)
 
+    readonly property string close: String.fromCodePoint(0xF0156)
     readonly property string cog: String.fromCodePoint(0xF0493)
     readonly property string lock: String.fromCodePoint(0xF033E)
     readonly property string restart: String.fromCodePoint(0xF0709)

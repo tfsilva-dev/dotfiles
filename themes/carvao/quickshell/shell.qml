@@ -14,4 +14,6 @@ ShellRoot {
     }
 
     Toasts {}
+
+    Appearance {}
 }

@@ -109,6 +109,9 @@ Singleton {
         btToggleProc.running = true
     }
 
+    // ---- Janela de aparência (aberta pela engrenagem do painel) ----
+    property bool appearanceOpen: false
+
     // ---- Notificações ----
     property bool dnd: false
 

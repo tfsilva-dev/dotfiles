@@ -21,7 +21,7 @@ Rectangle {
     Txt {
         anchors.centerIn: parent
         text: btn.icon
-        color: btn.highlighted ? Theme.text : btn.iconColor
+        color: btn.highlighted ? Theme.accentForeground : btn.iconColor
         font.pixelSize: btn.iconSize
     }
 

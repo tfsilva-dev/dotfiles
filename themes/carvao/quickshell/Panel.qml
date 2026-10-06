@@ -37,6 +37,18 @@ PopupWindow {
         else footer.disarm()
     }
 
+    // Engrenagem abriu a janela de aparência: fecha na hora, sem esperar o hover
+    Connections {
+        target: Sys
+
+        function onAppearanceOpenChanged() {
+            if (Sys.appearanceOpen) {
+                closeTimer.stop()
+                panel.open = false
+            }
+        }
+    }
+
     Timer {
         id: closeTimer
         interval: Theme.closeDelay

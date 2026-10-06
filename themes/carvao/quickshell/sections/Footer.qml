@@ -1,4 +1,4 @@
-// Footer.qml — configurações (sem ação por enquanto) | bloquear, reiniciar, desligar
+// Footer.qml — aparência | bloquear, reiniciar, desligar
 //
 // Reiniciar e desligar pedem confirmação: o 1º clique só arma o botão, o 2º
 // (dentro de Theme.confirmTimeout) executa. Expira sozinho ou com disarm(),
@@ -38,9 +38,12 @@ RowLayout {
 
     spacing: Theme.spacing / 2
 
-    // TODO: abrir a janela de aparência quando ela existir
     IconButton {
         icon: Icons.cog
+        onClicked: {
+            footer.disarm()
+            Sys.appearanceOpen = true
+        }
     }
 
     Txt {
