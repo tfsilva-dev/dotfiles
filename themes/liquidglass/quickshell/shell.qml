@@ -18,6 +18,11 @@ ShellRoot {
             left: true
             right: true
         }
+        margins {
+            top: 8
+            left: 8
+            right: 8
+        }
         implicitHeight: 34
         color: "transparent"
 
@@ -43,6 +48,7 @@ ShellRoot {
         readonly property color whiteStrong: "#f2ffffff"   // branco ~95% opacidade
         readonly property color whiteSubtle: "#33ffffff"   // branco ~20% opacidade
         readonly property color whiteFaint: "#22ffffff"    // branco ~13% opacidade
+        readonly property color hairline: "#121314"         // capturado com hyprpicker no VS Code do usuário — dynBorder da paleta é instável
 
         // ---- Cores dinâmicas do wallpaper (geradas pelo matugen) ----
         FileView {
@@ -79,8 +85,8 @@ ShellRoot {
                 parseInt(palette.surface.substring(1, 3), 16) / 255,
                 parseInt(palette.surface.substring(3, 5), 16) / 255,
                 parseInt(palette.surface.substring(5, 7), 16) / 255,
-                0.72)
-            : "#8c2a0e0e"
+                0.90)
+            : "#e62a0e0e"
 
         readonly property color dynBorder: palette ? palette.outline : "#4d6b1f1f"
 
@@ -104,8 +110,9 @@ ShellRoot {
         Rectangle {
             id: barGlass
             anchors.fill: parent
+            radius: 16
             color: bar.dynBg
-            border.color: bar.dynBorder
+            border.color: bar.hairline
             border.width: 1
 
             RowLayout {
@@ -213,7 +220,7 @@ ShellRoot {
                 // ---- DIREITA: launcher, CPU, RAM, relógio, energia ----
                 RowLayout {
                     Layout.alignment: Qt.AlignVCenter
-                    spacing: 14
+                    spacing: 20
 
                     // Launcher de apps (lupa)
                     Rectangle {
@@ -239,10 +246,8 @@ ShellRoot {
                     }
 
                     // ---- Volume (scroll pra ajustar, clique pra mutar) ----
-                    Rectangle {
+                    Item {
                         id: volPill
-                        color: volMouseArea.containsMouse ? bar.hoverOverlay : "transparent"
-                        radius: 8
                         implicitWidth: volRow.implicitWidth + 12
                         implicitHeight: 22
 
@@ -250,6 +255,8 @@ ShellRoot {
                             id: volRow
                             anchors.centerIn: parent
                             spacing: 4
+                            opacity: volMouseArea.containsMouse ? 0.65 : 1.0
+                            Behavior on opacity { NumberAnimation { duration: 120 } }
 
                             // Ícone desenhado em SVG embutido (data URI) — não depende de
                             // nenhuma fonte de ícone instalada, ao contrário do glifo de
@@ -283,7 +290,6 @@ ShellRoot {
                                 font.pixelSize: 11
                                 renderType: Text.QtRendering
                                 font.family: bar.fontFamily
-                                font.bold: true
                             }
                         }
 
@@ -303,22 +309,26 @@ ShellRoot {
                         }
                     }
 
-                    // Status da rede cabeada (rótulo em texto, sem depender de glifo)
-                    Rectangle {
-                        color: togglesMouseArea.containsMouse ? bar.hoverOverlay : "transparent"
-                        radius: 8
-                        implicitWidth: ethLabel.implicitWidth + 12
+                    // Status da rede cabeada (ícone de linha SVG, mesmo padrão do ícone de volume)
+                    Item {
+                        implicitWidth: ethIcon.width + 12
                         implicitHeight: 22
 
-                        Text {
-                            id: ethLabel
+                        Image {
+                            id: ethIcon
                             anchors.centerIn: parent
-                            text: "Rede"
-                            color: bar.etherConnected ? bar.success : bar.dynFgMuted
-                            font.pixelSize: 11
-                            renderType: Text.QtRendering
-                            font.family: bar.fontFamily
-                            font.bold: true
+                            width: 14
+                            height: 14
+                            sourceSize: Qt.size(28, 28)
+                            opacity: togglesMouseArea.containsMouse ? 0.65 : 1.0
+                            Behavior on opacity { NumberAnimation { duration: 120 } }
+                            source: {
+                                const c = String(bar.etherConnected ? bar.dynAccent : bar.dynFgMuted).replace("#", "").slice(-6)
+                                const plug = '<rect x="7" y="3" width="10" height="9" rx="1" fill="none" stroke="#' + c + '" stroke-width="1.6"/>' +
+                                    '<path d="M9 12v4M12 12v5M15 12v4" fill="none" stroke="#' + c + '" stroke-width="1.6" stroke-linecap="round"/>'
+                                const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">' + plug + '</svg>'
+                                return "data:image/svg+xml;base64," + Qt.btoa(svg)
+                            }
                         }
 
                         MouseArea {
@@ -329,10 +339,8 @@ ShellRoot {
                         }
                     }
 
-                    // Notificações (rótulo em texto — evita depender de glifo de ícone)
-                    Rectangle {
-                        color: notifMouseArea.containsMouse ? bar.hoverOverlay : "transparent"
-                        radius: 8
+                    // Notificações (sino desenhado em SVG embutido, mesmo padrão do ícone de volume)
+                    Item {
                         implicitWidth: notifRow.implicitWidth + 12
                         implicitHeight: 22
 
@@ -340,14 +348,22 @@ ShellRoot {
                             id: notifRow
                             anchors.centerIn: parent
                             spacing: 4
+                            opacity: notifMouseArea.containsMouse ? 0.65 : 1.0
+                            Behavior on opacity { NumberAnimation { duration: 120 } }
 
-                            Text {
-                                text: "Avisos"
-                                color: bar.dynFg
-                                font.pixelSize: 11
-                                renderType: Text.QtRendering
-                                font.family: bar.fontFamily
-                                font.bold: true
+                            Image {
+                                id: notifIcon
+                                width: 14
+                                height: 14
+                                anchors.verticalCenter: parent.verticalCenter
+                                sourceSize: Qt.size(28, 28)
+                                source: {
+                                    const c = String(bar.dynFgMuted).replace("#", "").slice(-6)
+                                    const bell = '<path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" fill="none" stroke="#' + c + '" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>' +
+                                        '<path d="M13.73 21a2 2 0 0 1-3.46 0" fill="none" stroke="#' + c + '" stroke-width="1.6" stroke-linecap="round"/>'
+                                    const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">' + bell + '</svg>'
+                                    return "data:image/svg+xml;base64," + Qt.btoa(svg)
+                                }
                             }
 
                             Rectangle {
@@ -365,7 +381,6 @@ ShellRoot {
                                     font.pixelSize: 9
                                     renderType: Text.QtRendering
                                     font.family: bar.fontFamily
-                                    font.bold: true
                                 }
                             }
                         }
@@ -378,18 +393,43 @@ ShellRoot {
                         }
                     }
 
-                    // CPU com rótulo claro
-                    RowLayout {
-                        spacing: 4
-                        Text { text: "CPU"; color: bar.dynFgMuted; font.pixelSize: 10 ; font.family: bar.fontFamily; Layout.alignment: Qt.AlignBaseline ; renderType: Text.QtRendering }
-                        Text { text: cpuMonitor.usage + "%"; color: bar.dynFg; font.pixelSize: 12; font.bold: true ; font.family: bar.fontFamily; Layout.alignment: Qt.AlignBaseline ; renderType: Text.QtRendering }
-                    }
+                    // CPU + RAM num único pill, só os números separados por um traço
+                    Item {
+                        id: sysPill
+                        implicitWidth: sysRow.implicitWidth + 12
+                        implicitHeight: 22
 
-                    // RAM com rótulo claro
-                    RowLayout {
-                        spacing: 4
-                        Text { text: "RAM"; color: bar.dynFgMuted; font.pixelSize: 10 ; font.family: bar.fontFamily; Layout.alignment: Qt.AlignBaseline ; renderType: Text.QtRendering }
-                        Text { text: ramMonitor.usage + "%"; color: bar.dynFg; font.pixelSize: 12; font.bold: true ; font.family: bar.fontFamily; Layout.alignment: Qt.AlignBaseline ; renderType: Text.QtRendering }
+                        Row {
+                            id: sysRow
+                            anchors.centerIn: parent
+                            spacing: 10
+                            opacity: sysMouseArea.containsMouse ? 0.65 : 1.0
+                            Behavior on opacity { NumberAnimation { duration: 120 } }
+
+                            Text {
+                                text: cpuMonitor.usage + "%"
+                                color: cpuMonitor.usage > 80 ? bar.danger : bar.dynFgMuted
+                                font.pixelSize: 11
+                                renderType: Text.QtRendering
+                                font.family: bar.fontFamily
+                                anchors.verticalCenter: parent.verticalCenter
+                            }
+
+                            Text {
+                                text: ramMonitor.usage + "%"
+                                color: ramMonitor.usage > 80 ? bar.danger : bar.dynFgMuted
+                                font.pixelSize: 11
+                                renderType: Text.QtRendering
+                                font.family: bar.fontFamily
+                                anchors.verticalCenter: parent.verticalCenter
+                            }
+                        }
+
+                        MouseArea {
+                            id: sysMouseArea
+                            anchors.fill: parent
+                            hoverEnabled: true
+                        }
                     }
 
                     // (Relógio movido pro centro, ao lado da dock — ver mais abaixo)
@@ -431,10 +471,8 @@ ShellRoot {
             implicitWidth: clockBlock.implicitWidth
 
             // ---- Hora + data, centralizada de verdade na barra ----
-            Rectangle {
+            Item {
                 id: clockBlock
-                color: clockMouse.containsMouse ? bar.hoverOverlay : "transparent"
-                radius: 8
                 implicitWidth: clockCol.implicitWidth + 12
                 implicitHeight: 30
 
@@ -442,15 +480,16 @@ ShellRoot {
                     id: clockCol
                     anchors.centerIn: parent
                     spacing: 0
+                    opacity: clockMouse.containsMouse ? 0.65 : 1.0
+                    Behavior on opacity { NumberAnimation { duration: 120 } }
 
                     Text {
                         anchors.horizontalCenter: parent.horizontalCenter
                         text: Qt.formatDateTime(bar.nowDate, "hh:mm")
                         color: bar.dynFg
-                        font.pixelSize: 13
+                        font.pixelSize: 11
                         renderType: Text.QtRendering
                         font.family: bar.fontFamily
-                        font.bold: true
                     }
                     Text {
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -683,9 +722,9 @@ ShellRoot {
                         }
                     }
 
-                    // auto-dismiss (usa expireTimeout do app se informado, senão 6s)
+                    // auto-dismiss (sempre 2.5s, ignora expireTimeout do app)
                     Timer {
-                        interval: toastItem.modelData.expireTimeout > 0 ? toastItem.modelData.expireTimeout * 1000 : 6000
+                        interval: 2500
                         running: true
                         repeat: false
                         onTriggered: toastItem.modelData.expire()
@@ -1238,10 +1277,10 @@ ShellRoot {
                             onClicked: {
                                 bar.powerMenuOpen = false
                                 if (modelData.action === "poweroff") {
-                                    powerProc.command = ["systemctl", "poweroff"]
+                                    powerProc.command = ["/home/ferreira/.local/bin/power", "poweroff"]
                                     powerProc.running = true
                                 } else if (modelData.action === "reboot") {
-                                    powerProc.command = ["systemctl", "reboot"]
+                                    powerProc.command = ["/home/ferreira/.local/bin/power", "reboot"]
                                     powerProc.running = true
                                 } else if (modelData.action === "logout") {
                                     powerProc.command = ["hyprctl", "dispatch", "hl.dsp.exit()"]

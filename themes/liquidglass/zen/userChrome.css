@@ -2,10 +2,10 @@
    ~/.config/matugen/templates/zen-userChrome.css */
 
 :root {
-  --zen-bg: #0f1417;
-  --zen-fg: #dfe3e7;
-  --zen-accent: #90cef4;
-  --zen-border: #8b9297;
+  --zen-bg: #121318;
+  --zen-fg: #e3e2e9;
+  --zen-accent: #b5c4ff;
+  --zen-border: #8f909a;
 }
 
 #navigator-toolbox,

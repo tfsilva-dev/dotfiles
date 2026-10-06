@@ -68,13 +68,15 @@ ShellRoot {
             : "#802a0e0e"
 
         readonly property color dynBorder: palette && palette.outline ? palette.outline : "#4d6b1f1f"
+        readonly property color hairline: "#121314"    // capturado com hyprpicker no VS Code do usuário — dynBorder da paleta é instável
 
         // ---- Fundo de vidro (pill), estilo macOS ----
         Rectangle {
+            id: dockGlass
             anchors.fill: parent
             radius: height / 2
             color: dock.dynBg
-            border.color: dock.dynBorder
+            border.color: dock.hairline
             border.width: 1
 
             Row {

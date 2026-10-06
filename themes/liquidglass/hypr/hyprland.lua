@@ -16,3 +16,10 @@ require("modules.keybinds")
 require("modules.workspaces")
 require("modules.window-rules")
 require("modules.autostart")
+
+-- Mitigação pra crash do Xwayland em fullscreen (RDNA3 + Hyprland)
+hl.config({
+    render = {
+        direct_scanout = false,
+    },
+})

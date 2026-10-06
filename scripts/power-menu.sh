@@ -9,10 +9,10 @@ escolha=$(echo -e "$opcoes" | wofi --dmenu --style ~/.config/wofi/style.css --pr
 
 case "$escolha" in
     "Desligar")
-        systemctl poweroff
+        "$HOME/.local/bin/power" poweroff
         ;;
     "Reiniciar")
-        systemctl reboot
+        "$HOME/.local/bin/power" reboot
         ;;
     "Logout")
         hyprctl dispatch exit
