@@ -50,7 +50,8 @@ PopupWindow {
 
         // Voltar da aparência: reabre já no lugar. Se o mouse não estiver
         // sobre a barra/painel, fecha pelo atraso normal.
-        function onPanelRequested() {
+        function onPanelRequested(screenName) {
+            if (screenName !== panel.bar.screen.name) return
             panel.open = true
             if (!panel.wanted) closeTimer.restart()
         }
@@ -119,6 +120,7 @@ PopupWindow {
             Footer {
                 id: footer
                 Layout.fillWidth: true
+                onSettingsRequested: Sys.openAppearance(panel.bar.screen.name)
             }
         }
     }

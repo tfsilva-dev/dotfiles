@@ -1,4 +1,6 @@
 // Bar.qml — barra compacta: workspaces | HH:mm | volume
+//
+// Uma por tela: quem cria é o Variants do shell.qml, que passa `screen`.
 
 import QtQuick
 import Quickshell
@@ -21,10 +23,14 @@ PanelWindow {
     WlrLayershell.namespace: "carvao-bar"
     WlrLayershell.layer: WlrLayer.Top
 
-    // Some em fullscreen (jogos etc). Workspace 9 entra como reforço porque
-    // é onde a window rule do Steam manda os jogos.
-    readonly property bool activeIsFullscreen: !!(ToplevelManager.activeToplevel && ToplevelManager.activeToplevel.fullscreen)
-    readonly property bool onGameWorkspace: !!(Hyprland.focusedWorkspace && Hyprland.focusedWorkspace.id === 9)
+    // Monitor do Hyprland correspondente a esta tela
+    readonly property HyprlandMonitor monitor: Hyprland.monitorFor(screen)
+
+    // Some em fullscreen (jogos etc) — só na tela onde está a janela em
+    // fullscreen. Workspace 9 entra como reforço porque é onde a window rule
+    // do Steam manda os jogos.
+    readonly property bool activeIsFullscreen: !!(monitor && monitor.focused && ToplevelManager.activeToplevel && ToplevelManager.activeToplevel.fullscreen)
+    readonly property bool onGameWorkspace: !!(monitor && monitor.activeWorkspace && monitor.activeWorkspace.id === 9)
     visible: !activeIsFullscreen && !onGameWorkspace
 
     Rectangle {
@@ -51,9 +57,11 @@ PanelWindow {
                 delegate: Item {
                     id: ws
                     required property var modelData
-                    readonly property bool active: !!(Hyprland.focusedWorkspace && Hyprland.focusedWorkspace.id === modelData.id)
+                    // ativo = o que está visível nesta tela
+                    readonly property bool active: !!(bar.monitor && bar.monitor.activeWorkspace && bar.monitor.activeWorkspace.id === modelData.id)
 
-                    visible: modelData.id > 0
+                    // só os workspaces desta tela
+                    visible: modelData.id > 0 && (!modelData.monitor || modelData.monitor === bar.monitor)
                     width: active ? Theme.wsActiveWidth : Theme.wsDotSize
                     height: Theme.barHeight
                     Behavior on width { NumberAnimation { duration: Theme.animFast; easing.type: Easing.OutCubic } }

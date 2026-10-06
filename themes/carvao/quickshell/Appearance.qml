@@ -21,7 +21,16 @@ PanelWindow {
         Sys.appearanceOpen = false
     }
 
-    visible: Sys.appearanceOpen
+    // Uma por tela (Variants do shell.qml); só a da tela da engrenagem aparece.
+    // A tela vem por propriedade própria: ler `screen` no binding de
+    // `visible` dá binding loop (mostrar a janela renotifica `screen`).
+    required property ShellScreen targetScreen
+    screen: targetScreen
+    visible: Sys.appearanceOpen && !!targetScreen && Sys.appearanceScreen === targetScreen.name
+
+    // Tela sumiu com a janela aberta: fecha de vez, pra não reabrir sozinha
+    // quando o monitor voltar
+    Component.onDestruction: if (visible) Sys.appearanceOpen = false
     anchors.top: true
     anchors.bottom: true
     anchors.left: true

@@ -15,6 +15,9 @@ RowLayout {
     // "" | "reboot" | "poweroff"
     property string armed: ""
 
+    // engrenagem: quem sabe em que tela abrir a aparência é o Panel
+    signal settingsRequested()
+
     function press(action) {
         if (armed === action) {
             disarm()
@@ -42,7 +45,7 @@ RowLayout {
         icon: Icons.cog
         onClicked: {
             footer.disarm()
-            Sys.appearanceOpen = true
+            footer.settingsRequested()
         }
     }
 

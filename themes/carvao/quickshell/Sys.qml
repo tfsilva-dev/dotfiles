@@ -110,14 +110,21 @@ Singleton {
     }
 
     // ---- Janela de aparência (aberta pela engrenagem do painel) ----
+    // Aberta numa tela só: a do painel cuja engrenagem foi clicada
     property bool appearanceOpen: false
+    property string appearanceScreen: ""
 
-    // Seta de voltar da aparência: o painel reabre no lugar dela
-    signal panelRequested()
+    function openAppearance(screenName) {
+        appearanceScreen = screenName
+        appearanceOpen = true
+    }
+
+    // Seta de voltar da aparência: o painel daquela tela reabre no lugar dela
+    signal panelRequested(string screenName)
 
     function backToPanel() {
         appearanceOpen = false
-        panelRequested()
+        panelRequested(appearanceScreen)
     }
 
     // ---- Notificações ----
