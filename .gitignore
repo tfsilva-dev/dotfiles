@@ -32,3 +32,12 @@ dconf/user
 session/
 trashrc
 tide-island/userconfig.json
+
+# Dados de jogos/emuladores (BIOS, saves, caches) — ficam só no backup local
+PCSX2/
+Epic/
+*.bak
+*.bkp
+# Estado gerado pelo KDE/baloo
+baloofileinformationrc
+ktrashrc

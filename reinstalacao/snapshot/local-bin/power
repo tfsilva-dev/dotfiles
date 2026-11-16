@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+action="${1:-poweroff}"
+
+if pgrep -x steam >/dev/null; then
+  steam -shutdown
+  for _ in {1..40}; do
+    pgrep -x steam >/dev/null || break
+    sleep 0.5
+  done
+fi
+
+systemctl "$action"

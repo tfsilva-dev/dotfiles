@@ -1,0 +1,13 @@
+eww-wayland
+grimblast-git
+hyprsysteminfo
+python-pywalfox
+python-screeninfo
+rustdesk-bin
+tide-island
+ttf-material-design-icons-extended
+whitesur-gtk-theme
+whitesur-icon-theme
+yay
+youtube-music-bin
+zen-browser-bin
