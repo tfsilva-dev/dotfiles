@@ -16,7 +16,7 @@ hl.bind(mainMod .. " + " .. "M", hl.dsp.window.fullscreen({ mode = "maximized", 
 hl.bind(mainMod .. " + SHIFT + " .. "G", hl.dsp.exec_cmd("kitty --title btop-float -e btop"))
 
 -- Gravar área selecionada (Super + Shift + R)
-hl.bind(mainMod .. " + SHIFT + " .. "R", hl.dsp.exec_cmd('wf-recorder -g "$(slurp)" -f ~/Videos/$(date +\'%Y-%m-%d_%H%M%S.mp4\')'))
+hl.bind(mainMod .. " + SHIFT + " .. "R", hl.dsp.exec_cmd('wf-recorder -a -g "$(slurp)" -f ~/Videos/$(date +\'%Y-%m-%d_%H%M%S.mp4\')'))
 
 -- Parar a gravação (Super + Shift + S)
 hl.bind(mainMod .. " + SHIFT + " .. "S", hl.dsp.exec_cmd("pkill wf-recorder"))
