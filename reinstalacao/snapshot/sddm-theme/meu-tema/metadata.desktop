@@ -1,0 +1,7 @@
+[SddmGreeterTheme]
+Name=MeuTema
+Description=Meu tema customizado para Hyprland
+Author=SeuNome
+Type=QML
+Version=1.0
+ConfigFile=theme.conf

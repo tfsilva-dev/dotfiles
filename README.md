@@ -5,10 +5,15 @@ trocados inteiros via symlink. Cada tema empacota sua própria config do
 Hyprland, barra/dock, terminal e launcher — trocar de tema não mexe em nada
 manualmente, é um único comando.
 
+## Reinstalar o sistema do zero
+
+Ver [reinstalacao/README.md](reinstalacao/README.md) — pacotes, `/etc`, serviços e script
+de restauração. As configs de `~/.config` ficam no branch [`config`](../../tree/config).
+
 ## Uso
 
 ```bash
-git clone git@github.com:devferreirathiago-design/dotfiles.git ~/dotfiles
+git clone git@github.com:tfsilva-dev/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ./switch-theme.sh liquidglass
 ```
