@@ -1,9 +1,0 @@
-[credential]
-	helper = store
-[http]
-	postBuffer = 524288000
-[user]
-	name = Thiago Ferreira
-	email = dev.ferreirathiago@gmail.com
-[core]
-	pager = cat
